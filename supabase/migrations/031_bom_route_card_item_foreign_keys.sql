@@ -9,13 +9,14 @@
 
 -- Step 1: Reconcile legacy seed items in masters before adding constraints
 INSERT INTO public.masters (
+    id,
     code, name, description, part_no, hsn_code, reorder_level, 
     store_location, default_warehouse, is_finished_goods, sale_rate, 
     purchase_rate, item_type, unit, uom, status
 )
 VALUES 
-  ('00000001', 'MAIN SPINDLE HOUSING 120MM', 'Main spindle housing 120mm per drawing', '00000001', '8483', 10, 'Finished Goods Store', 'Finished Goods Store', true, 0, 0, 'Finished Good', 'Nos', 'Nos', 'Active'),
-  ('00000002', 'HARDENED BUSH 45X60X80', 'Hardened bush 45x60x80 per drawing', '00000002', '8483', 10, 'Finished Goods Store', 'Finished Goods Store', false, 0, 0, 'Semi-Finished', 'Nos', 'Nos', 'Active')
+  (gen_random_uuid(),'00000001', 'MAIN SPINDLE HOUSING 120MM', 'Main spindle housing 120mm per drawing', '00000001', '8483', 10, 'Finished Goods Store', 'Finished Goods Store', true, 0, 0, 'Finished Good', 'Nos', 'Nos', 'Active'),
+  (gen_random_uuid(),'00000002', 'HARDENED BUSH 45X60X80', 'Hardened bush 45x60x80 per drawing', '00000002', '8483', 10, 'Finished Goods Store', 'Finished Goods Store', false, 0, 0, 'Semi-Finished', 'Nos', 'Nos', 'Active')
 ON CONFLICT (code) DO NOTHING;
 
 -- Step 2: Auto-backfill any missing legacy BOM parent part codes into masters
